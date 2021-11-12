@@ -6,5 +6,5 @@ const { getContent } = require("./endpoints/getContent");
   runServer();
 })();
 
-app.use("/*", validateRequest);
+app.use("/getContent", validateRequest);
 app.post("/getContent", (req, res) => getContent(req, res));

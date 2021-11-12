@@ -58,7 +58,6 @@ const validateRequest = (req, res, next) => {
       return;
     }
   }
-  console.log(req.body);
 
   if (!!elements && req.body.elements.length < 1) {
     res
@@ -66,6 +65,7 @@ const validateRequest = (req, res, next) => {
       .send({ error: "`elements` array must have at least one element." });
     return;
   }
+  console.log(req.body);
 
   if (!!elements) {
     const { error, isValid } = validateElementsStructure(req.body.elements);

@@ -60,7 +60,9 @@ const validateRequest = (req, res, next) => {
   }
 
   if (!!elements && req.body.elements.length < 1) {
-    res.send({ error: "`elements` array must have at least one element." });
+    res
+      .status(400)
+      .send({ error: "`elements` array must have at least one element." });
     return;
   }
   console.log(req.body);

@@ -35,7 +35,6 @@ const validateRequest = (req, res, next) => {
   } else {
     req.body.links = booleanify(links);
   }
-  console.log(req.body);
 
   if (!!rawContent && !isBool(rawContent)) {
     res
@@ -45,6 +44,7 @@ const validateRequest = (req, res, next) => {
   } else {
     req.body.rawContent = booleanify(rawContent);
   }
+  console.log(req.body);
 
   if (!!elements && !["object", "string"].includes(typeof elements)) {
     res

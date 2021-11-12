@@ -21,7 +21,6 @@ const validateRequest = (req, res, next) => {
   } else {
     req.body.isSPA = booleanify(isSPA);
   }
-  console.log(req.body);
 
   if (!!images && !isBool(images)) {
     res.status(400).send({ error: "`images` field must be a boolean type." });
@@ -29,6 +28,7 @@ const validateRequest = (req, res, next) => {
   } else {
     req.body.images = booleanify(images);
   }
+  console.log(req.body);
 
   if (!!links && !isBool(links)) {
     res.status(400).send({ error: "`links` field must be a boolean type." });

@@ -44,7 +44,6 @@ const validateRequest = (req, res, next) => {
   } else {
     req.body.rawContent = booleanify(rawContent);
   }
-  console.log(req.body);
 
   if (!!elements && !["object", "string"].includes(typeof elements)) {
     res
@@ -59,6 +58,7 @@ const validateRequest = (req, res, next) => {
       return;
     }
   }
+  console.log(req.body);
 
   if (!!elements && req.body.elements.length < 1) {
     res

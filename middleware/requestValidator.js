@@ -9,7 +9,6 @@ const validateRequest = (req, res, next) => {
     res.status(400).send({ error: "`url` field is required." });
     return;
   }
-  console.log(req.body);
 
   if (typeof url !== "string") {
     res.status(400).send({ error: "`url` field must be a string type." });
@@ -22,6 +21,7 @@ const validateRequest = (req, res, next) => {
   } else {
     req.body.isSPA = booleanify(isSPA);
   }
+  console.log(req.body);
 
   if (!!images && !isBool(images)) {
     res.status(400).send({ error: "`images` field must be a boolean type." });

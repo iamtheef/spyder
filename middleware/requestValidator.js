@@ -28,7 +28,6 @@ const validateRequest = (req, res, next) => {
   } else {
     req.body.images = booleanify(images);
   }
-  console.log(req.body);
 
   if (!!links && !isBool(links)) {
     res.status(400).send({ error: "`links` field must be a boolean type." });
@@ -36,6 +35,7 @@ const validateRequest = (req, res, next) => {
   } else {
     req.body.links = booleanify(links);
   }
+  console.log(req.body);
 
   if (!!rawContent && !isBool(rawContent)) {
     res

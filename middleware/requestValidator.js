@@ -4,8 +4,6 @@ const {
 } = require("../utils/validateElementsStructure");
 
 const validateRequest = (req, res, next) => {
-  console.log("came here");
-  console.log(req.body);
   const { url, isSPA, images, links, rawContent, elements } = req.body;
 
   if (!url || url.length < 1) {

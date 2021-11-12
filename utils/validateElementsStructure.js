@@ -5,7 +5,7 @@ const validateElementsStructure = (elements) => {
       return { isValid: false, error: "Each element must include a tag name." };
     }
 
-    if (!isBool(el.includeAttrs)) {
+    if (!!el.includeAttrs && !isBool(el.includeAttrs)) {
       return { isValid: false, error: "`includeAttrs` must be a boolean." };
     }
   }

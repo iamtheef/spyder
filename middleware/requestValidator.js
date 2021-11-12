@@ -6,38 +6,40 @@ const {
 const validateRequest = (req, res, next) => {
   const { url, isSPA, images, links, rawContent, elements } = req.body;
   if (!url || url.length < 1) {
-    res.send({ error: "`url` field is required." });
+    res.status(400).send({ error: "`url` field is required." });
     return;
   }
 
   if (typeof url !== "string") {
-    res.send({ error: "`url` field must be a string type." });
+    res.status(400).send({ error: "`url` field must be a string type." });
     return;
   }
 
   if (!!isSPA && !isBool(isSPA)) {
-    res.send({ error: "`isSPA` field must be a boolean type." });
+    res.status(400).send({ error: "`isSPA` field must be a boolean type." });
     return;
   } else {
     req.body.isSPA = booleanify(isSPA);
   }
 
   if (!!images && !isBool(images)) {
-    res.send({ error: "`images` field must be a boolean type." });
+    res.status(400).send({ error: "`images` field must be a boolean type." });
     return;
   } else {
     req.body.images = booleanify(images);
   }
 
   if (!!links && !isBool(links)) {
-    res.send({ error: "`links` field must be a boolean type." });
+    res.status(400).send({ error: "`links` field must be a boolean type." });
     return;
   } else {
     req.body.links = booleanify(links);
   }
 
   if (!!rawContent && !isBool(rawContent)) {
-    res.send({ error: "`rawContent` field must be a boolean type." });
+    res
+      .status(400)
+      .send({ error: "`rawContent` field must be a boolean type." });
     return;
   } else {
     req.body.rawContent = booleanify(rawContent);
@@ -58,15 +60,16 @@ const validateRequest = (req, res, next) => {
   }
 
   if (!!elements && req.body.elements.length < 1) {
-    res.send({ error: "`elements` array must have at least one element." });
+    res
+      .status(400)
+      .send({ error: "`elements` array must have at least one element." });
     return;
   }
-  console.log(req.body);
 
   if (!!elements) {
     const { error, isValid } = validateElementsStructure(req.body.elements);
     if (!isValid) {
-      res.send({ error: error });
+      res.status(400).send({ error: error });
       return;
     } else {
       req.body.elements.forEach((el) => {
@@ -81,7 +84,7 @@ const validateRequest = (req, res, next) => {
     !req.body.rawContent &&
     !req.body.elements
   ) {
-    res.send({
+    res.status(400).send({
       error:
         "You must use at least one field of 'images', 'links', 'rawContent' or 'elements' to retrieve content.",
     });

@@ -5,11 +5,11 @@ const {
 
 const validateRequest = (req, res, next) => {
   const { url, isSPA, images, links, rawContent, elements } = req.body;
-  console.log(req.body);
   if (!url || url.length < 1) {
     res.status(400).send({ error: "`url` field is required." });
     return;
   }
+  console.log(req.body);
 
   if (typeof url !== "string") {
     res.status(400).send({ error: "`url` field must be a string type." });

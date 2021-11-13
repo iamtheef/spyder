@@ -16,10 +16,9 @@ const loadWithPuppeteer = async (link) => {
   const revisionInfo = await browserFetcher.download("901912");
 
   const browser = await puppeteer.launch({
-    dumpio: true,
     headless: true,
-    executablePath: "/usr/bin/chromium-browser",
-    args: ["--disable-setuid-sandbox", "--no-sandbox", "--disable-gpu"],
+    executablePath: revisionInfo.executablePath,
+    args: ["--disabled-setupid-sandbox"],
   });
 
   const context = await browser.createIncognitoBrowserContext();

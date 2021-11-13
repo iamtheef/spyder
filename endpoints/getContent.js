@@ -6,7 +6,6 @@ const getContent = async ({ body }, res) => {
   const { url, isSPA, images, links, rawContent, elements } = body;
   const C = {};
   const content = await loadPage(url, isSPA);
-  console.log(content);
   const soup = new JSSoup(content);
 
   if (images) {

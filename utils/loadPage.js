@@ -13,7 +13,7 @@ const loadPage = async (link, isSPA) => {
 const loadWithPuppeteer = async (link) => {
   const browser = await puppeteer.launch({
     headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    executablePath: "/usr/bin/chromium-browser",
   });
   const page = await browser.newPage();
   await page.goto(link, {

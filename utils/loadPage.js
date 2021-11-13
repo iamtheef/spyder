@@ -14,7 +14,7 @@ const loadWithPuppeteer = async (link) => {
   const browserFetcher = puppeteer.createBrowserFetcher();
   const revisionInfo = await browserFetcher.download("884014");
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     executablePath: revisionInfo.executablePath,
     args: ["--no-sandbox", "--disabled-setupid-sandbox"],
   });

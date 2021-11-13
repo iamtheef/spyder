@@ -13,6 +13,7 @@ const loadPage = async (link, isSPA) => {
 const loadWithPuppeteer = async (link) => {
   const browser = await puppeteer.launch({
     headless: true,
+    args: ["--use-gl=egl"],
   });
   const page = await browser.newPage();
   await page.goto(link, {

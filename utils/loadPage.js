@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { sleep } = require("./sleep");
 
 const loadPage = async (link, isSPA) => {
   if (isSPA) {
@@ -12,14 +13,17 @@ const loadPage = async (link, isSPA) => {
 const loadWithPuppeteer = async (link) => {
   const puppeteer = require("puppeteer-core");
   const browserFetcher = puppeteer.createBrowserFetcher();
-  const revisionInfo = await browserFetcher.download("884014");
+  const revisionInfo = await browserFetcher.download("901912");
+
   const browser = await puppeteer.launch({
-    headless: false,
-    executablePath: revisionInfo.executablePath,
-    args: ["--no-sandbox", "--disabled-setupid-sandbox"],
+    dumpio: true,
+    headless: true,
+    executablePath: "/usr/bin/chromium-browser",
+    args: ["--disable-setuid-sandbox", "--no-sandbox", "--disable-gpu"],
   });
 
-  const page = await browser.newPage();
+  const context = await browser.createIncognitoBrowserContext();
+  const page = await context.newPage();
   await page.goto(link, {
     waitUntil: "networkidle2",
   });

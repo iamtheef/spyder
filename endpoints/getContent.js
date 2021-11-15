@@ -29,8 +29,9 @@ const getContent = async ({ body }, res) => {
     elements.forEach((e) => {
       C.elements.push(
         soup.findAll(e.tagName, formParams(e)).map((l) => ({
-          text: l.text,
-          attrs: e.includeAttrs ? l.attrs : undefined,
+          text: e.include?.includes("text") ? l.text : undefined,
+          attrs: e.include?.includes("attrs") ? l.attrs : undefined,
+          dom: e.include?.includes("dom") ? l.prettify() : undefined,
         }))
       );
     });

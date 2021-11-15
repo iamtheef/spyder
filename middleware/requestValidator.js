@@ -75,13 +75,10 @@ const validateRequest = (req, res, next) => {
 
   if (!!elements) {
     const { error, isValid } = validateElementsStructure(req.body.elements);
+    console.log("is valid", isValid);
     if (!isValid) {
       res.status(400).send({ error: error });
       return;
-    } else {
-      req.body.elements.forEach((el) => {
-        el.includeAttrs = booleanify(el.includeAttrs);
-      });
     }
   }
 

@@ -18,7 +18,10 @@ const loadWithPuppeteer = async (link) => {
   const browser = await puppeteer.launch({
     headless: true,
     executablePath: revisionInfo.executablePath,
-    args: ["--disabled-setupid-sandbox"],
+    args: [
+      "--disabled-setupid-sandbox",
+      "'--proxy-server=socks5://127.0.0.1:9050'",
+    ],
   });
 
   const context = await browser.createIncognitoBrowserContext();

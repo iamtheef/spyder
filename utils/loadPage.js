@@ -26,6 +26,13 @@ const loadWithPuppeteer = async (link) => {
 
   const context = await browser.createIncognitoBrowserContext();
   const page = await context.newPage();
+
+  await page.goto("https://api.ipify.org/", {
+    waitUntil: "networkidle2",
+  });
+  let ip = await page.evaluate(() => document.body.innerText);
+  console.log("hitting with", ip);
+
   await page.goto(link, {
     waitUntil: "networkidle2",
   });

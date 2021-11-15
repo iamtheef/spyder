@@ -4,7 +4,7 @@ const {
 } = require("../utils/validateElementsStructure");
 
 const validateRequest = (req, res, next) => {
-  const { url, isSPA, images, links, rawContent, elements } = req.body;
+  const { url, isSPA, images, links, rawContent, rawText, elements } = req.body;
   if (!url || url.length < 1) {
     res.status(400).send({ error: "`url` field is required." });
     return;
@@ -45,6 +45,13 @@ const validateRequest = (req, res, next) => {
     req.body.rawContent = booleanify(rawContent);
   }
 
+  if (!!rawText && !isBool(rawText)) {
+    res.status(400).send({ error: "`rawText` field must be a boolean type." });
+    return;
+  } else {
+    req.body.rawText = booleanify(rawText);
+  }
+
   if (!!elements && !["object", "string"].includes(typeof elements)) {
     res
       .status(400)
@@ -82,11 +89,12 @@ const validateRequest = (req, res, next) => {
     !req.body.images &&
     !req.body.links &&
     !req.body.rawContent &&
+    !req.body.rawText &&
     !req.body.elements
   ) {
     res.status(400).send({
       error:
-        "You must use at least one field of 'images', 'links', 'rawContent' or 'elements' to retrieve content.",
+        "You must use at least one field of 'images', 'links', 'rawContent', 'rawText' or 'elements' to retrieve content.",
     });
     return;
   }

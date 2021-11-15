@@ -3,7 +3,7 @@ const { formParams } = require("../utils/formParams");
 const JSSoup = require("jssoup").default;
 
 const getContent = async ({ body }, res) => {
-  const { url, isSPA, images, links, rawContent, elements } = body;
+  const { url, isSPA, images, links, rawContent, rawText, elements } = body;
   const C = {};
   const content = await loadPage(url, isSPA);
   const soup = new JSSoup(content);
@@ -17,6 +17,10 @@ const getContent = async ({ body }, res) => {
   }
 
   if (rawContent) {
+    C.rawContent = content;
+  }
+
+  if (rawText) {
     C.rawContent = soup.text;
   }
 

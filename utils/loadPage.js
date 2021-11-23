@@ -1,5 +1,8 @@
 const axios = require("axios");
-const { sleep } = require("./sleep");
+// const puppeteer = require("puppeteer-core");
+const puppeteer = require("puppeteer-extra");
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+puppeteer.use(StealthPlugin());
 
 const loadPage = async (link, isSPA) => {
   if (isSPA) {
@@ -11,27 +14,22 @@ const loadPage = async (link, isSPA) => {
 };
 
 const loadWithPuppeteer = async (link) => {
-  const puppeteer = require("puppeteer-core");
   const browserFetcher = puppeteer.createBrowserFetcher();
   const revisionInfo = await browserFetcher.download("901912");
 
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     executablePath: revisionInfo.executablePath,
-    args: [
-      "--disabled-setupid-sandbox",
-      "'--proxy-server=socks5://127.0.0.1:9050'",
-    ],
+    args: ["--incognito"],
   });
 
-  const context = await browser.createIncognitoBrowserContext();
-  const page = await context.newPage();
+  await page.setUserAgent(
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36"
+  );
 
-  await page.goto("https://api.ipify.org/", {
-    waitUntil: "networkidle2",
-  });
-  let ip = await page.evaluate(() => document.body.innerText);
-  console.log("hitting with", ip);
+  await page.setJavaScriptEnabled(true);
+
+  const page = await browser.newPage();
 
   await page.goto(link, {
     waitUntil: "networkidle2",

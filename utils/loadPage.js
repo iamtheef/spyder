@@ -18,7 +18,7 @@ const loadWithPuppeteer = async (link) => {
   const revisionInfo = await browserFetcher.download("901912");
 
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     executablePath: revisionInfo.executablePath,
     args: ["--incognito"],
   });
